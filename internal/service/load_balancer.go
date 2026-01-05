@@ -74,7 +74,8 @@ func (lb *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.URL.Path == "/healthz" && r.Header.Get("X-Health-Check") == "1" {
+	if r.URL.Path == "/healthz" {
+		slog.Debug("health check request received", "header", r.Header)
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("OK"))
 		return
