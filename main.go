@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"github.com/zer0go/simple-load-balancer/cmd"
 )
 
 var Version = "development"
 
 func main() {
-	fmt.Println("Example App " + Version)
+	cmd.Execute(Version)
 }
