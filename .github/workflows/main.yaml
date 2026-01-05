@@ -27,7 +27,7 @@ jobs:
       - name: Run build
         run: make build-all
       - name: Create artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.BINARY_NAME }}-binaries
           path: build/
