@@ -68,16 +68,16 @@ func (lb *LoadBalancer) StartHealthChecks(interval time.Duration) {
 }
 
 func (lb *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	backend := lb.getNextBackend()
-	if backend == nil {
-		http.Error(w, "no healthy backends", http.StatusServiceUnavailable)
-		return
-	}
-
-	if r.URL.Path == "/healthz" {
+    if r.URL.Path == "/healthz" {
 		slog.Debug("health check request received", "header", r.Header)
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("OK"))
+		return
+    }
+	
+	backend := lb.getNextBackend()
+	if backend == nil {
+		http.Error(w, "no healthy backends", http.StatusServiceUnavailable)
 		return
 	}
 
@@ -91,5 +91,5 @@ func (lb *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "backend error", http.StatusBadGateway)
 	}
 
-	proxy.ServeHTTP(w, r)
+	proxy.ServTP(w, r)
 }
