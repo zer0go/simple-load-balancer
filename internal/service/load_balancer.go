@@ -91,5 +91,5 @@ func (lb *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "backend error", http.StatusBadGateway)
 	}
 
-	proxy.ServHTTP(w, r)
+	proxy.ServeHTTP(w, r)
 }
